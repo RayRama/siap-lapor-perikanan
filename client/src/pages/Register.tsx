@@ -1,5 +1,51 @@
-import React from "react";
+import { useAtom } from "jotai";
+import { RegisterAsset } from "../assets";
+import Button from "../components/atoms/Button";
+import RegisterForm from "../components/molecules/RegisterForm";
+import { dataUserAtom } from "../store";
 
 export default function Register() {
-  return <div>Register</div>;
+  const [dataUser, setDataUser] = useAtom(dataUserAtom);
+
+  function handleRegister() {
+    console.log(dataUser);
+  }
+
+  return (
+    <div className="flex w-full h-screen">
+      {/* Right Side */}
+      <div className="w-1/2 bg-blue-600 flex flex-col justify-between p-10">
+        <div className="text-white font-bold flex flex-col">
+          Berbagi Suara Anda
+          <span>Untuk Kelestarian Ikan</span>
+        </div>
+
+        <div className="self-center">
+          <RegisterAsset />
+        </div>
+        <div className="text-white text-center">
+          Daftar Dan Dukung Konservasi Laut
+        </div>
+      </div>
+      {/* Left Side */}
+      <div className="w-1/2 bg-[#E4F6FF] flex flex-col justify-center items-center space-y-5">
+        <div className="text-black font-bold text-3xl">Buat Akun Baru Anda</div>
+        <p className="text-gray text-xs font-light">
+          Lengkapi form di bawah dengan menggunakan data Anda yang valid
+        </p>
+        <RegisterForm />
+        <Button
+          title="Register"
+          onClick={() => handleRegister()}
+          className="w-[300px] bg-[#3742FA] text-white p-2 rounded-md"
+        />
+        <div className="text-black">
+          Sudah punya akun?{" "}
+          <span className="text-blue-600">
+            <a href="/login">Masuk Disini</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
 }

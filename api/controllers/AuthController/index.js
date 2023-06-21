@@ -1,7 +1,7 @@
 const { Request, Response } = require("express");
 const User = require("../../models/User");
 const Login = require("./Login");
-const Register = require("./Register");
+const RegisterController = require("./RegisterController");
 
 class AuthController {
   async login(req = Request, res = Response) {
@@ -10,7 +10,7 @@ class AuthController {
   }
 
   async register(req = Request, res = Response) {
-    const registerController = new Register(User);
+    const registerController = new RegisterController(User);
     await registerController.execute(req, res);
   }
 }

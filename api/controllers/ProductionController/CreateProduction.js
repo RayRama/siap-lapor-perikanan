@@ -6,7 +6,7 @@ class CreateProduction {
   async execute(req, res) {
     const production = new this.Production(req.body);
     try {
-      const savedProduction = production.save();
+      const savedProduction = await production.save();
       res.status(201).json(savedProduction);
     } catch (error) {
       res.status(400).json({ error: error.message });

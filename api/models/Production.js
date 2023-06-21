@@ -26,4 +26,4 @@ const productionSchema = new mongoose.Schema(
   }
 );
 
-const Production = mongoose.model("Production", productionSchema);
+module.exports = mongoose.model("Production", productionSchema);

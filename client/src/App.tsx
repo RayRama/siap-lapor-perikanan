@@ -6,6 +6,10 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Ikan from "./pages/Ikan";
+import Produksi from "./pages/Produksi";
+import TambahIkan from "./pages/TambahIkan";
+import TambahProduksi from "./pages/TambahProduksi";
 
 function App() {
   return (
@@ -18,7 +22,13 @@ function App() {
         {/* Private Routes */}
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />} />
+          <Route path="/dataproduksi" element={<Produksi />}>
+            <Route path="tambahproduksi" element={<TambahProduksi />} />
+          </Route>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dataikan" element={<Ikan />}>
+            <Route path="tambahikan" element={<TambahIkan />} />
+          </Route>
         </Route>
         {/* Error Routes */}
         <Route path="*" element={<ErrorPage />} />

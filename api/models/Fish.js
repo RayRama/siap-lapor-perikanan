@@ -17,4 +17,4 @@ const fishSchema = new mongoose.Schema(
   }
 );
 
-const Fish = mongoose.model("Fish", fishSchema);
+module.exports = mongoose.model("Fish", fishSchema);

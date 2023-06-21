@@ -21,7 +21,4 @@ const productionContentSchema = new mongoose.Schema(
   }
 );
 
-const ProductionContent = mongoose.model(
-  "ProductionContent",
-  productionContentSchema
-);
+module.exports = mongoose.model("ProductionContent", productionContentSchema);
