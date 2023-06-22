@@ -43,6 +43,9 @@ app.use("/api/productions", productionRoute);
 app.use("/api/fishs", fishRoute);
 app.use("/api/productionContents", productionContentRoute);
 
-app.listen(8899, () => {
+const PORT = process.env.PORT || 8899;
+app.listen(PORT, () => {
   console.log("Server is running on port 8899");
 });
+
+module.exports = app;
