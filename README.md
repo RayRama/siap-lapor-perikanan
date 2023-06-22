@@ -22,6 +22,6 @@ Belum ada deskripsi
 
 - [x] Home Belum ada isinya
 - [] Keamanan belum ada
-- [] Pemanggilan API belum optimal
+- [x] Pemanggilan API belum optimal
 - [x] Tampilan belum responsive
-- [] Kode belum rapih dan optimal
+- [x] Kode belum rapih dan optimal

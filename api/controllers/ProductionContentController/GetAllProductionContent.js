@@ -5,7 +5,9 @@ class GetAllProductionContent {
 
   async execute(req, res) {
     try {
-      const productionContent = await this.ProductionContent.find();
+      const productionContent = await this.ProductionContent.find().populate(
+        "fish_id"
+      );
       res.status(200).json(productionContent);
     } catch (error) {
       res.status(404).json({ error: error.message });

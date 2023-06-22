@@ -12,55 +12,78 @@ export default function Produksi() {
   const token = JSON.parse(localStorage.getItem("token") || "{}");
 
   React.useEffect(() => {
+    // async function getData() {
+    //   try {
+    //     await axios
+    //       .get("/productions", {
+    //         headers: {
+    //           token: `Bearer ${token}`,
+    //         },
+    //       })
+    //       .then((res) => {
+    //         res.data.data.map(async (item1: any) => {
+    //           // setTempData((prev) => [...prev, item1]);
+    //           await axios
+    //             .get("/productionContents", {
+    //               headers: {
+    //                 token: `Bearer ${token}`,
+    //               },
+    //             })
+    //             .then((res2) => {
+    //               res2.data.map(async (item2: any) => {
+    //                 await axios
+    //                   .get(`/fishs/find/${item2.fish_id}`, {
+    //                     headers: {
+    //                       token: `Bearer ${token}`,
+    //                     },
+    //                   })
+    //                   .then((res3) => {
+    //                     if (item1.productionContent === item2._id) {
+    //                       setData((prev) => [
+    //                         ...prev,
+    //                         {
+    //                           name: item1.productionName,
+    //                           fishName: res3.data.name,
+    //                           weight: item2.weight,
+    //                           quantity: item2.quantity,
+    //                           date: item1.date.split("T")[0],
+    //                         },
+    //                       ]);
+    //                     }
+    //                   });
+    //               });
+    //             });
+    //         });
+    //       });
+    //   } catch (error) {
+    //     console.log(error);
+    //     toast.error("Gagal Mengambil Data", {
+    //       icon: "❌",
+    //     });
+    //   }
+    // }
+
     async function getData() {
-      try {
-        await axios
-          .get("/productions", {
-            headers: {
-              token: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            res.data.data.map(async (item1: any) => {
-              // setTempData((prev) => [...prev, item1]);
-              await axios
-                .get("/productionContents", {
-                  headers: {
-                    token: `Bearer ${token}`,
-                  },
-                })
-                .then((res2) => {
-                  res2.data.map(async (item2: any) => {
-                    await axios
-                      .get(`/fishs/find/${item2.fish_id}`, {
-                        headers: {
-                          token: `Bearer ${token}`,
-                        },
-                      })
-                      .then((res3) => {
-                        if (item1.productionContent === item2._id) {
-                          setData((prev) => [
-                            ...prev,
-                            {
-                              name: item1.productionName,
-                              fishName: res3.data.name,
-                              weight: item2.weight,
-                              quantity: item2.quantity,
-                              date: item1.date.split("T")[0],
-                            },
-                          ]);
-                        }
-                      });
-                  });
-                });
-            });
+      await axios
+        .get("/productions", {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          res.data.data.map((item: any) => {
+            setData((prev) => [
+              ...prev,
+              {
+                name: item.productionName,
+                fishName: item.productionContent.fish_id.name,
+                weight: item.productionContent.weight,
+                quantity: item.productionContent.quantity,
+                date: item.date.split("T")[0],
+              },
+            ]);
           });
-      } catch (error) {
-        console.log(error);
-        toast.error("Gagal Mengambil Data", {
-          icon: "❌",
         });
-      }
     }
     getData();
   }, [token]);

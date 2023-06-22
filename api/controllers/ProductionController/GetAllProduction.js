@@ -10,6 +10,14 @@ class GetAllProduction {
       const page = parseInt(req.query.page) || 1;
 
       const production = await this.Production.find()
+        .populate("user_id")
+        .populate({
+          path: "productionContent",
+          populate: {
+            path: "fish_id",
+            model: "Fish",
+          },
+        })
         .limit(limit)
         .skip((page - 1) * limit)
         .exec();
