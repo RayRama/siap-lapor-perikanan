@@ -1,15 +1,22 @@
 import React from "react";
-import { IcFish, IcHome, IcLogout, IcProduct } from "../../assets";
+import { IcClose, IcFish, IcHome, IcLogout, IcProduct } from "../../assets";
 import SidebarItem from "../atoms/SidebarItem";
 import { useAtom } from "jotai";
 import { authAtom } from "../../store";
+import ModalOverlay from "../atoms/ModalOverlay";
 
-export default function Sidebar({ show }: { show: boolean }) {
+export default function Sidebar({
+  show,
+  setter,
+}: {
+  show: boolean;
+  setter: any;
+}) {
   const [, setAuth] = useAtom(authAtom);
   const className =
-    "bg-white w-[320px] flex-none transition-[margin-left] fixed md:static ease-in-out duration-500 z-40";
+    "bg-white md:w-[320px] w-[250px] flex-none transition-[margin-left] fixed md:static ease-in-out duration-500 z-40";
 
-  const appendClass = show ? " ml-0" : " ml-[-320px] md:ml-0";
+  const appendClass = show ? " ml-0" : "ml-[-250px] md:ml-0";
 
   function logoutHandle() {
     setAuth({
@@ -21,7 +28,22 @@ export default function Sidebar({ show }: { show: boolean }) {
   return (
     <>
       <div className={`${className} ${appendClass}`}>
-        <div className="fixed w-[320px] h-full px-5 bg-white">
+        <div
+          className={`${
+            show ? "" : "hidden"
+          } -mr-12 absolute right-0 top-0 pt-2 md:hidden opacity-100`}
+        >
+          <button
+            type="button"
+            onClick={() => {
+              setter((oldVal: boolean) => !oldVal);
+            }}
+            className="ml-1 flex h-10 w-10 items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+          >
+            <IcClose />
+          </button>
+        </div>
+        <div className="fixed md:w-[320px] w-[250px] h-full px-5 bg-white">
           <div className="pt-5 pb-sm sticky top-0 flex justify-between flex-col h-full space-y-5">
             <div className="flex flex-row items-center">
               <img
@@ -59,6 +81,7 @@ export default function Sidebar({ show }: { show: boolean }) {
                     name={item.name}
                     route={item.route}
                     icon={item.icon}
+                    setter={setter}
                   />
                 );
               })}
@@ -79,6 +102,7 @@ export default function Sidebar({ show }: { show: boolean }) {
           </div>
         </div>
       </div>
+      {show ? <ModalOverlay setter={setter} /> : <></>}
     </>
   );
 }

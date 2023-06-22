@@ -20,8 +20,8 @@ Belum ada deskripsi
 
 ### TODO
 
-- [] Home Belum ada isinya
+- [x] Home Belum ada isinya
 - [] Keamanan belum ada
 - [] Pemanggilan API belum optimal
-- [] Tampilan belum responsive
+- [x] Tampilan belum responsive
 - [] Kode belum rapih dan optimal

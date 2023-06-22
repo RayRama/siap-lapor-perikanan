@@ -34,7 +34,7 @@ export default function Register() {
     <div className="flex w-full h-screen">
       <Toaster reverseOrder={false} position="top-center" />
       {/* Right Side */}
-      <div className="w-1/2 bg-blue-600 flex flex-col justify-between p-10">
+      <div className="w-1/2 bg-blue-600 md:flex flex-col justify-between p-10 hidden">
         <div className="text-white font-bold flex flex-col">
           Berbagi Suara Anda
           <span>Untuk Kelestarian Ikan</span>
@@ -48,9 +48,11 @@ export default function Register() {
         </div>
       </div>
       {/* Left Side */}
-      <div className="w-1/2 bg-[#E4F6FF] flex flex-col justify-center items-center space-y-5">
-        <div className="text-black font-bold text-3xl">Buat Akun Baru Anda</div>
-        <p className="text-gray text-xs font-light">
+      <div className="md:w-1/2 w-full bg-[#E4F6FF] flex flex-col justify-center items-center space-y-5">
+        <div className="text-black font-bold text-3xl text-center">
+          Buat Akun Baru Anda
+        </div>
+        <p className="text-gray text-xs font-light text-center">
           Lengkapi form di bawah dengan menggunakan data Anda yang valid
         </p>
         <RegisterForm />

@@ -61,7 +61,7 @@ export default function TambahIkan() {
       {/* Content */}
       <div className="bg-white rounded-md w-full h-auto p-5 mt-5">
         {/* input nama ikan */}
-        <div className="flex flex-row gap-3">
+        <div className="flex md:flex-row flex-col gap-3">
           <div className="flex flex-col w-full">
             <label className="text-sm font-bold text-black tracking-wide">
               Nama Ikan

@@ -66,7 +66,7 @@ export default function Produksi() {
   }, [token]);
 
   return (
-    <div className="flex p-10 flex-col">
+    <div className="flex flex-col md:p-10 p-5 md:mt-0 mt-20">
       <Toaster reverseOrder={false} position="top-center" />
       {location.pathname === "/dataproduksi" ? (
         <>

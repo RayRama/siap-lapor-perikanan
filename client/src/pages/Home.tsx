@@ -82,7 +82,7 @@ export default function Home() {
   }, [month]);
 
   return (
-    <div className="flex flex-col p-10 ">
+    <div className="flex flex-col md:p-10 p-5 md:mt-0 mt-20">
       <div className="w-full p-5 bg-white rounded-md">
         <h1 className="text-2xl font-bold">
           Laporan Produksi Bulan {fullMonth[month - 1]} {year}
@@ -91,7 +91,7 @@ export default function Home() {
       <div className="flex flex-col p-5 mt-5 bg-white rounded-md w-full">
         <div className="flex flex-row-reverse mb-10">
           <select
-            className="w-1/4 p-2 rounded-md block appearance-none  bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
+            className="md:w-1/4 w-1/2 p-2 rounded-md block appearance-none  bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
             onChange={(e) => setMonth(parseInt(e.target.value))}
             value={month}
           >
