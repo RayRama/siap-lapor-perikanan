@@ -21,6 +21,8 @@ class GetAllProduction {
         total_page: Math.ceil(count / limit),
         current_page: page,
       });
+      // const production = await this.Production.find().populate("user_id");
+      // res.status(200).json(production);
     } catch (error) {
       res.status(404).json({ error: error.message });
     }

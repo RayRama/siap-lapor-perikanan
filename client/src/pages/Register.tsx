@@ -3,16 +3,36 @@ import { RegisterAsset } from "../assets";
 import Button from "../components/atoms/Button";
 import RegisterForm from "../components/molecules/RegisterForm";
 import { dataUserAtom } from "../store";
+import axios from "../helper/api/axios";
+import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [dataUser, setDataUser] = useAtom(dataUserAtom);
+  const navigate = useNavigate();
 
-  function handleRegister() {
-    console.log(dataUser);
+  async function handleRegister() {
+    try {
+      await axios.post("/auth/register", dataUser).then((res) => {
+        toast.success("Berhasil Mendaftar", {
+          icon: "✅",
+        });
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Gagal Mendaftar", {
+        icon: "❌",
+      });
+    }
   }
 
   return (
     <div className="flex w-full h-screen">
+      <Toaster reverseOrder={false} position="top-center" />
       {/* Right Side */}
       <div className="w-1/2 bg-blue-600 flex flex-col justify-between p-10">
         <div className="text-white font-bold flex flex-col">

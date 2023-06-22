@@ -1,13 +1,14 @@
 import axios from "../helper/api/axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function TambahIkan() {
   const [namaIkan, setNamaIkan] = React.useState<string>("");
   const [linkGambar, setLinkGambar] = React.useState<string>("");
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token") || "{}");
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   async function addData() {
     try {
@@ -25,12 +26,26 @@ export default function TambahIkan() {
           }
         )
         .then((res) => {
+          console.log(res);
           toast.success("Data Berhasil Ditambahkan", { icon: "👏" });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Anda bukan admin", {
+            icon: "❌",
+          });
         });
     } catch (error) {
+      console.log(error);
       toast.error("Data Gagal Ditambahkan");
     }
   }
+
+  React.useEffect(() => {
+    if (!user.isAdmin) {
+      navigate("/dataikan");
+    }
+  }, []);
 
   return (
     <div>

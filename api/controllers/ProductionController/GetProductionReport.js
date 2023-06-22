@@ -24,7 +24,7 @@ class GetProductionReport {
           {
             $group: {
               _id: { $dayOfMonth: "$date" },
-              total: { $sum: "$total" },
+              total: { $sum: 1 },
             },
           },
         ]);
@@ -43,7 +43,23 @@ class GetProductionReport {
           {
             $group: {
               _id: { $hour: "$date" },
-              total: { $sum: "$total" },
+              total: { $sum: 1 },
+            },
+          },
+        ]);
+      } else if (year) {
+        production = await this.Production.aggregate([
+          {
+            $match: {
+              $expr: {
+                $eq: [{ $year: "$date" }, parseInt(year)],
+              },
+            },
+          },
+          {
+            $group: {
+              _id: { $month: "$date" },
+              total: { $sum: 1 },
             },
           },
         ]);
@@ -51,8 +67,8 @@ class GetProductionReport {
         production = await this.Production.aggregate([
           {
             $group: {
-              _id: { $month: "$date" },
-              total: { $sum: "$total" },
+              _id: { $month: "$createdAt" },
+              total: { $sum: 1 },
             },
           },
         ]);

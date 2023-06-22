@@ -3,6 +3,7 @@ import { IProduksi, columns } from "../data/produksi/column";
 import React from "react";
 import { DataTable } from "../data/produksi/data-table";
 import axios from "../helper/api/axios";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function Produksi() {
   const [data, setData] = React.useState<IProduksi[]>([]);
@@ -11,7 +12,7 @@ export default function Produksi() {
   const token = JSON.parse(localStorage.getItem("token") || "{}");
 
   React.useEffect(() => {
-    async function getData(): Promise<IProduksi[]> {
+    async function getData() {
       try {
         await axios
           .get("/productions", {
@@ -54,10 +55,11 @@ export default function Produksi() {
                 });
             });
           });
-        return Promise.resolve([]);
       } catch (error) {
         console.log(error);
-        return Promise.reject(error);
+        toast.error("Gagal Mengambil Data", {
+          icon: "❌",
+        });
       }
     }
     getData();
@@ -65,6 +67,7 @@ export default function Produksi() {
 
   return (
     <div className="flex p-10 flex-col">
+      <Toaster reverseOrder={false} position="top-center" />
       {location.pathname === "/dataproduksi" ? (
         <>
           {/* Content Title */}

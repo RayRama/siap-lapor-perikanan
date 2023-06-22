@@ -10,6 +10,11 @@ interface IDataUser {
   email: string;
 }
 
+export interface IProduksiReport {
+  tanggal: string;
+  Produksi: number;
+}
+
 const initialAuth: IAuth = {
   token: undefined,
 };
@@ -20,5 +25,11 @@ const initialDataUser: IDataUser = {
   email: "",
 };
 
+const initialProduksiReport: IProduksiReport = {
+  tanggal: "",
+  Produksi: 0,
+};
+
 export const authAtom = atom<IAuth>(initialAuth);
 export const dataUserAtom = atom<IDataUser>(initialDataUser);
+export const produksiReportAtom = atom<IProduksiReport>(initialProduksiReport);
