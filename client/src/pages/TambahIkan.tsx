@@ -12,6 +12,13 @@ export default function TambahIkan() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   async function addData() {
+    if (!namaIkan || !linkGambar) {
+      toast.error("Data tidak boleh kosong", {
+        icon: "❌",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       await axios

@@ -17,6 +17,19 @@ export default function TambahProduksi() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   async function addData() {
+    if (
+      !namaProduksi ||
+      !jenisIkan ||
+      !berat ||
+      !kuantitas ||
+      !tanggalProduksi
+    ) {
+      toast.error("Data tidak boleh kosong", {
+        icon: "❌",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       await axios

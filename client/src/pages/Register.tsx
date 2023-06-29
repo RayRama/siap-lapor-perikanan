@@ -6,17 +6,38 @@ import { dataUserAtom } from "../store";
 import axios from "../helper/api/axios";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 export default function Register() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [dataUser, setDataUser] = useAtom(dataUserAtom);
   const navigate = useNavigate();
 
+  // create a regex to check email and only accept lower case
+  const emailChecker = new RegExp("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$");
+
   async function handleRegister() {
+    if (!dataUser.email || !dataUser.password || !dataUser.username) {
+      toast.error("Data tidak boleh kosong", {
+        icon: "❌",
+      });
+      return;
+    }
+
+    if (!emailChecker.test(dataUser.email)) {
+      toast.error("Format email salah", {
+        icon: "❌",
+      });
+      return;
+    }
+
+    setLoading(true);
     try {
       await axios.post("/auth/register", dataUser).then((res) => {
         toast.success("Berhasil Mendaftar", {
           icon: "✅",
         });
+
+        setLoading(false);
 
         setTimeout(() => {
           navigate("/login");
@@ -27,6 +48,7 @@ export default function Register() {
       toast.error("Gagal Mendaftar", {
         icon: "❌",
       });
+      setLoading(false);
     }
   }
 
@@ -57,7 +79,7 @@ export default function Register() {
         </p>
         <RegisterForm />
         <Button
-          title="Register"
+          title={loading ? "Loading..." : "Register"}
           onClick={() => handleRegister()}
           className="w-[300px] bg-[#3742FA] text-white p-2 rounded-md"
         />
