@@ -71,7 +71,7 @@ export default function Home() {
       );
       const newData = response.data.map((item: any) => ({
         tanggal: `Tgl ${item._id}`,
-        Produksi: item.total,
+        produksi: item.total,
       }));
       setDataReport(newData);
       setLoading(false);
@@ -131,11 +131,7 @@ export default function Home() {
               <Tooltip />
               <Legend />
               <CartesianGrid strokeDasharray="3 3" />
-              <BarChart
-                dataKey="Produksi"
-                fill="#8884d8"
-                background={{ fill: "#eee" }}
-              />
+              <BarChart fill="#8884d8" background={{ fill: "#eee" }} />
             </BarChart>
           </ResponsiveContainer>
         )}
