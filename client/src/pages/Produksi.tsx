@@ -71,6 +71,7 @@ export default function Produksi() {
           },
         })
         .then((res) => {
+          // eslint-disable-next-line array-callback-return
           res.data.data.map((item: any) => {
             setData((prev) => [
               ...prev,

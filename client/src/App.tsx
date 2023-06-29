@@ -10,6 +10,7 @@ import Ikan from "./pages/Ikan";
 import Produksi from "./pages/Produksi";
 import TambahIkan from "./pages/TambahIkan";
 import TambahProduksi from "./pages/TambahProduksi";
+import Contoh from "./pages/Contoh";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/contoh" element={<Contoh />} />
 
         {/* Private Routes */}
         <Route element={<RequireAuth />}>

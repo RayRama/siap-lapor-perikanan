@@ -55,10 +55,14 @@ export default function TambahProduksi() {
             })
             .catch((err) => {
               console.log(err);
+              toast.error("Data Gagal Ditambahkan");
+              setLoading(false);
             });
         })
         .catch((err) => {
           console.log(err);
+          toast.error("Data Gagal Ditambahkan");
+          setLoading(false);
         });
     } catch (error) {
       toast.error("Data Gagal Ditambahkan");
@@ -115,6 +119,7 @@ export default function TambahProduksi() {
               placeholder="Masukkan Nama Produksi"
               value={namaProduksi}
               onChange={(e) => setNamaProduksi(e.target.value)}
+              required
             />
           </div>
           <div className="flex flex-col w-full">
@@ -128,6 +133,7 @@ export default function TambahProduksi() {
                 id="grid-state"
                 value={jenisIkan}
                 onChange={(e) => setJenisIkan(e.target.value)}
+                required
               >
                 <option>Choose...</option>
                 {dataIkan.map((item) => (
@@ -152,6 +158,7 @@ export default function TambahProduksi() {
               placeholder="Masukkan Berat Produksi"
               value={berat}
               onChange={(e) => setBerat(e.target.value)}
+              required
             />
           </div>
           <div className="flex flex-col w-full">
@@ -164,6 +171,7 @@ export default function TambahProduksi() {
               placeholder="Masukkan Jumlah Ikan Yang Akan Diproduksi"
               value={kuantitas}
               onChange={(e) => setKuantitas(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -177,6 +185,7 @@ export default function TambahProduksi() {
             placeholder="Masukkan Tanggal Produksi"
             value={tanggalProduksi}
             onChange={(e) => setTanggalProduksi(e.target.value)}
+            required
           />
         </div>
       </div>
@@ -194,7 +203,7 @@ export default function TambahProduksi() {
           onClick={() => addData()}
           disabled={loading}
         >
-          Tambah Data
+          {loading ? "Loading..." : "Tambah Data"}
         </button>
       </div>
     </div>

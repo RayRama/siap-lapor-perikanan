@@ -72,6 +72,7 @@ export default function TambahIkan() {
               placeholder="Masukkan Nama Ikan"
               value={namaIkan}
               onChange={(e) => setNamaIkan(e.target.value)}
+              required
             />
           </div>
           <div className="flex flex-col w-full">
@@ -84,6 +85,7 @@ export default function TambahIkan() {
               placeholder="Masukkan Link Gambar Ikan"
               value={linkGambar}
               onChange={(e) => setLinkGambar(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -101,7 +103,7 @@ export default function TambahIkan() {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => addData()}
         >
-          Tambah Data
+          {loading ? "Loading..." : "Tambah Data"}
         </button>
       </div>
     </div>
