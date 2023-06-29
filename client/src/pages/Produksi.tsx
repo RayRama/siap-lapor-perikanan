@@ -7,6 +7,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 export default function Produksi() {
   const [data, setData] = React.useState<IProduksi[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const token = JSON.parse(localStorage.getItem("token") || "{}");
@@ -64,6 +65,7 @@ export default function Produksi() {
     // }
 
     async function getData() {
+      setLoading(true);
       await axios
         .get("/productions", {
           headers: {
@@ -84,6 +86,14 @@ export default function Produksi() {
               },
             ]);
           });
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Gagal Mengambil Data", {
+            icon: "❌",
+          });
+          setLoading(false);
         });
     }
     getData();
@@ -103,7 +113,13 @@ export default function Produksi() {
 
           {/* Content */}
           <div className="bg-white rounded-md w-full h-auto p-5 mt-5">
-            <DataTable columns={columns} data={data} />
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <h1 className="text-lg">Loading...</h1>
+              </div>
+            ) : (
+              <DataTable columns={columns} data={data} />
+            )}
           </div>
 
           {/* Button */}

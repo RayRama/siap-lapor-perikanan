@@ -7,12 +7,14 @@ import { Toaster, toast } from "react-hot-toast";
 
 export default function Ikan() {
   const [data, setData] = React.useState<IIkan[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const token = JSON.parse(localStorage.getItem("token") || "{}");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   React.useEffect(() => {
+    setLoading(true);
     async function getData() {
       try {
         await axios
@@ -23,17 +25,20 @@ export default function Ikan() {
           })
           .then((res) => {
             setData(res.data.data);
-            console.log(res.data);
+            setLoading(false);
+            // console.log(res.data);
           })
           .catch((err) => {
-            toast.error("Anda bukan admin", {
+            toast.error("Gagal Mengambil Data", {
               icon: "❌",
             });
+            setLoading(false);
           });
       } catch (error) {
         toast.error("Gagal Mengambil Data", {
           icon: "❌",
         });
+        setLoading(false);
       }
     }
 
@@ -54,7 +59,13 @@ export default function Ikan() {
 
           {/* Content */}
           <div className="bg-white rounded-md w-full h-auto p-5 mt-5">
-            <DataTable columns={columns} data={data} />
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <h1 className="text-lg">Loading...</h1>
+              </div>
+            ) : (
+              <DataTable columns={columns} data={data} />
+            )}
           </div>
 
           {/* Button */}
