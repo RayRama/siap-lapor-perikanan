@@ -14,6 +14,7 @@ import { IProduksiReport } from "../store";
 
 export default function Home() {
   const [dataReport, setDataReport] = React.useState<IProduksiReport[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(false);
   const year = new Date().getFullYear();
   const [month, setMonth] = React.useState<number>(new Date().getMonth() + 1);
 
@@ -56,6 +57,7 @@ export default function Home() {
   // }
 
   const getProductionReports = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `/productions/report?month=${month}&year=${year}`,
@@ -72,8 +74,10 @@ export default function Home() {
         Produksi: item.total,
       }));
       setDataReport(newData);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
@@ -100,35 +104,41 @@ export default function Home() {
             ))}
           </select>
         </div>
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart
-            width={500}
-            height={300}
-            data={dataReport}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-            barSize={20}
-          >
-            <XAxis
-              dataKey="tanggal"
-              scale="point"
-              padding={{ left: 10, right: 10 }}
-            />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Bar
-              dataKey="Produksi"
-              fill="#8884d8"
-              background={{ fill: "#eee" }}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <h1 className="text-lg">Loading...</h1>
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart
+              width={500}
+              height={300}
+              data={dataReport}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+              barSize={20}
+            >
+              <XAxis
+                dataKey="tanggal"
+                scale="point"
+                padding={{ left: 10, right: 10 }}
+              />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <CartesianGrid strokeDasharray="3 3" />
+              <BarChart
+                dataKey="Produksi"
+                fill="#8884d8"
+                background={{ fill: "#eee" }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </div>
   );
