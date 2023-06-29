@@ -34,7 +34,7 @@ export default function TambahIkan() {
         })
         .catch((err) => {
           console.log(err);
-          toast.error("Anda bukan admin", {
+          toast.error("Data Gagal Ditambahkan", {
             icon: "❌",
           });
           setLoading(false);
