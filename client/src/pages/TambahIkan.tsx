@@ -6,11 +6,13 @@ import { Toaster, toast } from "react-hot-toast";
 export default function TambahIkan() {
   const [namaIkan, setNamaIkan] = React.useState<string>("");
   const [linkGambar, setLinkGambar] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token") || "{}");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   async function addData() {
+    setLoading(true);
     try {
       await axios
         .post(
@@ -28,16 +30,19 @@ export default function TambahIkan() {
         .then((res) => {
           console.log(res);
           toast.success("Data Berhasil Ditambahkan", { icon: "👏" });
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);
           toast.error("Anda bukan admin", {
             icon: "❌",
           });
+          setLoading(false);
         });
     } catch (error) {
       console.log(error);
       toast.error("Data Gagal Ditambahkan");
+      setLoading(false);
     }
   }
 
