@@ -5,7 +5,7 @@ class GetAllFish {
 
   async execute(req, res) {
     // create pagination with limit 10 items per page
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 30;
     const page = parseInt(req.query.page) || 1;
     const query = req.query.new;
 
